@@ -1,0 +1,14 @@
+{
+  "name": "social-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.6"
+  }
+}
