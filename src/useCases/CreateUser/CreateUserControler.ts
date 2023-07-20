@@ -7,15 +7,31 @@ export class CreateUserControler {
   ) { }
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { firstName, lastName, email, password, address } = request.body;
-
+    const { firstName, lastName, email, password, state,
+      city,
+      street,
+      number,
+      complement,
+      cep,
+      neighborhood, } = request.body;
+    const avatar = request?.file?.destination;
+    const address = {
+      state,
+      city,
+      street,
+      number,
+      complement,
+      cep,
+      neighborhood
+    }
     try {
       const user = await this.createUserUseCase.execute({
         firstName,
         lastName,
         email,
         password,
-        address
+        address,
+        avatar,
       })
 
       return response.status(201).json(user);

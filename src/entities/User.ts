@@ -7,6 +7,7 @@ export class User {
   public password?: string;
   public role?: string;
   public verified?: boolean;
+  public avatar?: string;
   public address: {
     state: string,
     city: string,

@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  avatar: String,
   address: addressSchema
 }, {
   timestamps: true

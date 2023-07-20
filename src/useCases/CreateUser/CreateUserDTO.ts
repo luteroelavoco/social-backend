@@ -3,7 +3,8 @@ export interface ICreateUserRequestDTO {
   lastName: string;
   email: string;
   password: string;
-  role?: string
+  role?: string;
+  avatar?: string;
   address?: {
     state: String,
     city: String,

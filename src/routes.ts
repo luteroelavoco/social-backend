@@ -1,4 +1,6 @@
 import { Router } from "express";
+import multer from "multer";
+import multerConfig from "./config/multer";
 import { createUserControler } from "./useCases/CreateUser";
 import { authUserControler } from "./useCases/AuthUser";
 import { AuthMiddleWare } from "./middlewares/implementations/AuthMiddleWare";
@@ -13,7 +15,7 @@ router.post('/auth', (request, response) => {
   return authUserControler.handle(request, response);
 });
 
-router.post('/users', authMiddleWare.isAuth, authMiddleWare.isAdmin, (request, response) => {
+router.post('/users', authMiddleWare.isAuth, authMiddleWare.isAdmin, multer(multerConfig).single("file"), (request, response) => {
   return createUserControler.handle(request, response);
 });
 
