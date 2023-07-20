@@ -1,0 +1,1 @@
+export const autSecret = process.env.JWT_SECRET_KEY
