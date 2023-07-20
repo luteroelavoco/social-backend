@@ -12,8 +12,8 @@ export class AuthTokenService implements IAuthTokenService {
 
   verifyToken(token: string): string {
     let decodeEmail: string;
-    jwt.verify(token, autSecret, (err, decoded) => {
-      decodeEmail = decoded["email"];
+    jwt.verify(token, autSecret, (err, decoded: any) => {
+      decodeEmail = decoded?.email;
     })
 
     return decodeEmail;

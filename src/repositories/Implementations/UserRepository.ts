@@ -39,4 +39,15 @@ export class UserRepository implements IUserRepository {
     await findedUser.save();
     return Object.assign(findedUser);
   }
+
+  async verifyEmail(email: string): Promise<User> {
+    const findedUser = await UserDatabase.findOne({ email });
+
+    if (!UserDatabase) return undefined;
+
+    findedUser.verified = true;
+
+    await findedUser.save();
+    return Object.assign(findedUser);
+  }
 }
