@@ -1,19 +1,20 @@
 export class User {
 
+  public _id?: string;
   public firstName: string;
   public lastName: string;
   public email: string;
-  public password: string;
-  public role: string;
-  public verified: boolean;
+  public password?: string;
+  public role?: string;
+  public verified?: boolean;
   public address: {
-    state: String,
-    city: String,
-    street: String,
-    number: Number,
-    complement: String,
-    cep: String,
-    neighborhood: String,
+    state: string,
+    city: string,
+    street: string,
+    number: number,
+    complement: string,
+    cep: string,
+    neighborhood: string,
   }
 
   constructor(props) {

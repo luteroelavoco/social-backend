@@ -26,5 +26,17 @@ export class UserRepository implements IUserRepository {
     return Object.assign(newUser);
   }
 
+  async update(user: Partial<User>): Promise<User> {
+    const findedUser = await UserDatabase.findById(user._id);
 
+    if (!UserDatabase) return undefined;
+
+    findedUser.firstName = user.firstName;
+    findedUser.lastName = user.lastName;
+    findedUser.email = user.email;
+    findedUser.address = user.address;
+
+    await findedUser.save();
+    return Object.assign(findedUser);
+  }
 }
