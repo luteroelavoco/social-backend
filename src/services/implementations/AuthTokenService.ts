@@ -10,4 +10,13 @@ export class AuthTokenService implements IAuthTokenService {
     return jwt.sign({ email }, autSecret);
   }
 
+  verifyToken(token: string): string {
+    let decodeEmail: string;
+    jwt.verify(token, autSecret, (err, decoded) => {
+      decodeEmail = decoded["email"];
+    })
+
+    return decodeEmail;
+  }
+
 }

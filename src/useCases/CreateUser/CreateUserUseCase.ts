@@ -2,12 +2,14 @@ import { User } from "../../entities/User";
 import { IMailProvider } from "../../providers/IMailProvider";
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { ICreateUserRequestDTO } from "./CreateUserDTO";
+import { IAuthTokenService } from "../../services/IAuthTokenService";
 
 export class CreaterUserUseCase {
 
   constructor(
     private usersRepository: IUserRepository,
-    private mailProvider: IMailProvider
+    private mailProvider: IMailProvider,
+    private authTokenService: IAuthTokenService
   ) {
 
   }
@@ -21,6 +23,7 @@ export class CreaterUserUseCase {
     const user = new User(data);
 
     const newUser = await this.usersRepository.save(user);
+    const token = this.authTokenService.generateToken(newUser.email)
     await this.mailProvider.sendEmail({
       to: {
         name: `${data.firstName} ${data.lastName}`,
@@ -31,7 +34,7 @@ export class CreaterUserUseCase {
         email: "testesocial@gmail.com",
       },
       subject: "Seja Bem vindo a plataforma",
-      body: '<p> Você ja pode fazer login na nossa plataforma'
+      body: `<p> Esse email foi cadastrada na nossa plataforma para validação desse email  <a href="https://testesocial.vercel.app/validate?token=${token}">clique no link </a> </p>`
     })
 
     return newUser;

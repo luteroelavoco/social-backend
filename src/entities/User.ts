@@ -5,6 +5,7 @@ export class User {
   public email: string;
   public password: string;
   public role: string;
+  public verified: boolean;
   public address: {
     state: String,
     city: String,

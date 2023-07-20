@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { IAuthMiddleWare } from "../IAuthMiddleWare";
 import { autSecret } from "../../config/authConfig";
+import { UserRepository } from "../../repositories/Implementations/UserRepository";
 
 export class AuthMiddleWare implements IAuthMiddleWare {
 
@@ -26,5 +27,14 @@ export class AuthMiddleWare implements IAuthMiddleWare {
       req.email = decoded.email;
       return next();
     })
+  }
+
+  async isAdmin(req, res, next) {
+    const userRepository = new UserRepository();
+    const authUser = await userRepository.findByEmail(req.email);
+
+    if (authUser?.role === "admin") return next();
+
+    return res.status(401).send({ error: "This token is for user, not for admin" });
   }
 }

@@ -10,7 +10,7 @@ router.post('/auth', (request, response) => {
   return authUserControler.handle(request, response);
 });
 
-router.post('/users', authMiddleWare.isAuth, (request, response) => {
+router.post('/users', authMiddleWare.isAuth, authMiddleWare.isAdmin, (request, response) => {
   return createUserControler.handle(request, response);
 });
 

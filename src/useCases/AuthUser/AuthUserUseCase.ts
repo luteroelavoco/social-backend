@@ -17,6 +17,10 @@ export class AuthUserUseCase {
       throw new Error('User not exists or invalid password.');
     }
 
+    if (!authUser.verified) {
+      throw new Error('User did not verify the email');
+    }
+
     const token = this.authTokenService.generateToken(data.email)
     return {
       user: authUser,
