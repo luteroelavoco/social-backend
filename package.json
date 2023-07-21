@@ -19,8 +19,11 @@
     "uuidv4": "^6.2.13"
   },
   "scripts": {
-    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
-    "test": "jest"
+    "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "test": "jest",
+    "start": "node dist/server.js",
+    "postinstall": "tsc",
+    "deploy": "git add . && git commit -m Heroku && git push heroku main"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
