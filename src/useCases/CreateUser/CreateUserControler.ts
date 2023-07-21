@@ -14,7 +14,7 @@ export class CreateUserControler {
       complement,
       cep,
       neighborhood, } = request.body;
-    const avatar = request?.file?.destination;
+    const avatar = request?.file?.["location"];
     const address = {
       state,
       city,
