@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "18.16.0"
+  },
   "dependencies": {
     "aws-sdk": "^2.1419.0",
     "bcrypt": "^5.1.0",
