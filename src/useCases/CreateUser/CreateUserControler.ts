@@ -2,18 +2,23 @@ import { Request, Response } from "express";
 import { CreaterUserUseCase } from "./CreateUserUseCase";
 
 export class CreateUserControler {
-  constructor(
-    private createUserUseCase: CreaterUserUseCase,
-  ) { }
+  constructor(private createUserUseCase: CreaterUserUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { firstName, lastName, email, password, state,
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      state,
       city,
       street,
       number,
       complement,
       cep,
-      neighborhood, } = request.body;
+      role,
+      neighborhood,
+    } = request.body;
     const avatar = request?.file?.["location"];
     const address = {
       state,
@@ -22,8 +27,8 @@ export class CreateUserControler {
       number,
       complement,
       cep,
-      neighborhood
-    }
+      neighborhood,
+    };
     try {
       const user = await this.createUserUseCase.execute({
         firstName,
@@ -32,13 +37,14 @@ export class CreateUserControler {
         password,
         address,
         avatar,
-      })
+        role,
+      });
 
       return response.status(201).json(user);
     } catch (err) {
       return response.status(400).json({
-        message: err.message || "Unexpected Error"
-      })
+        message: err.message || "Unexpected Error",
+      });
     }
   }
 }
