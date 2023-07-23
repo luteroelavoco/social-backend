@@ -4,15 +4,14 @@ import { User as UserDatabase } from "../../models/User";
 import bcrypt from "bcrypt";
 
 export class UserRepository implements IUserRepository {
-
   async authentication(email: string, password: string): Promise<User> {
-
     const user = await UserDatabase.findOne({ email }).select("+password");
 
     if (!user || !(await bcrypt.compare(password, user.password)))
       return undefined;
 
     user.password = undefined;
+
     return Object.assign(user);
   }
 
@@ -33,11 +32,13 @@ export class UserRepository implements IUserRepository {
 
     findedUser.firstName = user.firstName;
     findedUser.lastName = user.lastName;
-    findedUser.email = user.email;
     findedUser.address = user.address;
     findedUser.avatar = user.avatar;
+    if (user.password) findedUser.password = user.password;
 
     await findedUser.save();
+
+    findedUser.password = undefined;
     return Object.assign(findedUser);
   }
 

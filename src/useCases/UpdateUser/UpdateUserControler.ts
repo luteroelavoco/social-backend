@@ -2,12 +2,10 @@ import { Request, Response } from "express";
 import { UpdateUserUseCase } from "./UpdateUserUseCase";
 
 export class UpdateUserControler {
-  constructor(
-    private updateUserUseCase: UpdateUserUseCase,
-  ) { }
+  constructor(private updateUserUseCase: UpdateUserUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { firstName, lastName, email, address } = request.body;
+    const { firstName, lastName, address, password } = request.body;
     const { _id } = request.params;
 
     try {
@@ -15,15 +13,15 @@ export class UpdateUserControler {
         _id,
         firstName,
         lastName,
-        email,
-        address
-      })
+        address,
+        password,
+      });
 
       return response.status(201).json(user);
     } catch (err) {
       return response.status(400).json({
-        message: err.message || "Unexpected Error"
-      })
+        message: err.message || "Unexpected Error",
+      });
     }
   }
 }

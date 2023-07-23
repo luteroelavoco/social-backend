@@ -2,28 +2,28 @@ import { IUserRepository } from "../../repositories/IUserRepository";
 import { IVerifyUserRequestDTO } from "./VerifyUserDTO";
 import { IAuthTokenService } from "../../services/IAuthTokenService";
 
-
 export class VerifyUserUseCase {
-
   constructor(
     private usersRepository: IUserRepository,
-    private authTokenService: IAuthTokenService,
-  ) {
-
-  }
+    private authTokenService: IAuthTokenService
+  ) {}
   async execute(data: IVerifyUserRequestDTO) {
     const decodedEmail = this.authTokenService.verifyToken(data.token);
 
     if (!decodedEmail) {
-      throw new Error('Invalid token');
+      throw new Error("Invalid token");
     }
 
     const updatedUser = await this.usersRepository.verifyEmail(decodedEmail);
 
     if (!updatedUser) {
-      throw new Error('User not exists.');
+      throw new Error("User not exists.");
     }
 
-    return updatedUser;
+    const token = this.authTokenService.generateToken(updatedUser.email);
+    return {
+      user: updatedUser,
+      token,
+    };
   }
 }

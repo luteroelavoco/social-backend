@@ -1,22 +1,21 @@
 export class User {
-
   public _id?: string;
   public firstName: string;
   public lastName: string;
-  public email: string;
+  public email?: string;
   public password?: string;
   public role?: string;
   public verified?: boolean;
   public avatar?: string;
   public address: {
-    state: string,
-    city: string,
-    street: string,
-    number: number,
-    complement: string,
-    cep: string,
-    neighborhood: string,
-  }
+    state: string;
+    city: string;
+    street: string;
+    number: number;
+    complement: string;
+    cep: string;
+    neighborhood: string;
+  };
 
   constructor(props) {
     Object.assign(this, props);
