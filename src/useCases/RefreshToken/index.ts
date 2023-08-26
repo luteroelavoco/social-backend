@@ -1,5 +1,5 @@
 import { UserRepository } from "../../repositories/Implementations/UserRepository";
-import { RefreshUserControler } from "./RefreshUserControler";
+import { RefreshUserController } from "./RefreshUserController";
 import { RefreshUserUseCase } from "./RefreshUserUseCase";
 import { AuthTokenService } from "../../services/implementations/AuthTokenService";
 
@@ -12,6 +12,6 @@ const refreshUserUseCase = new RefreshUserUseCase(
   authTokenService
 );
 
-const refreshUserControler = new RefreshUserControler(refreshUserUseCase);
+const refreshUserController = new RefreshUserController(refreshUserUseCase);
 
-export { refreshUserControler };
+export { refreshUserController };

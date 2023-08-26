@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { VerifyUserUseCase } from "./VerifyUserUseCase";
 
-export class VerifyUserControler {
+export class VerifyUserController {
   constructor(private verifyUserUseCase: VerifyUserUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {

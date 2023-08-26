@@ -1,13 +1,11 @@
 import { UserRepository } from "../../repositories/Implementations/UserRepository";
-import { UpdateUserControler } from "./UpdateUserControler";
+import { UpdateUserController } from "./UpdateUserController";
 import { UpdateUserUseCase } from "./UpdateUserUseCase";
 
 const userRepository = new UserRepository();
 
 const updateUserUseCase = new UpdateUserUseCase(userRepository);
 
-const updateUserControler = new UpdateUserControler(updateUserUseCase);
+const updateUserController = new UpdateUserController(updateUserUseCase);
 
-export {
-  updateUserControler
-};
+export { updateUserController };

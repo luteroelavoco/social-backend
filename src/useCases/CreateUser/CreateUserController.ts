@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CreaterUserUseCase } from "./CreateUserUseCase";
 
-export class CreateUserControler {
+export class CreateUserController {
   constructor(private createUserUseCase: CreaterUserUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {

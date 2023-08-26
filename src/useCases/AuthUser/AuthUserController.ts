@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
 import { AuthUserUseCase } from "./AuthUserUseCase";
 
-export class AuthUserControler {
-  constructor(
-    private authUserUseCase: AuthUserUseCase,
-  ) { }
+export class AuthUserController {
+  constructor(private authUserUseCase: AuthUserUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body;
@@ -12,14 +10,14 @@ export class AuthUserControler {
     try {
       const user = await this.authUserUseCase.execute({
         email,
-        password
-      })
+        password,
+      });
 
       return response.status(200).json(user);
     } catch (err) {
       return response.status(400).json({
-        message: err.message || "Unexpected Error"
-      })
+        message: err.message || "Unexpected Error",
+      });
     }
   }
 }

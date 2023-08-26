@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UpdateUserUseCase } from "./UpdateUserUseCase";
 
-export class UpdateUserControler {
+export class UpdateUserController {
   constructor(private updateUserUseCase: UpdateUserUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {

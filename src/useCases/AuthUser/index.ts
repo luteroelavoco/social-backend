@@ -1,6 +1,6 @@
 import { UserRepository } from "../../repositories/Implementations/UserRepository";
 import { AuthTokenService } from "../../services/implementations/AuthTokenService";
-import { AuthUserControler } from "./AuthUserControler";
+import { AuthUserController } from "./AuthUserController";
 import { AuthUserUseCase } from "./AuthUserUseCase";
 
 const userRepository = new UserRepository();
@@ -8,8 +8,6 @@ const authTokenService = new AuthTokenService();
 
 const authUserUseCase = new AuthUserUseCase(userRepository, authTokenService);
 
-const authUserControler = new AuthUserControler(authUserUseCase);
+const authUserController = new AuthUserController(authUserUseCase);
 
-export {
-  authUserControler
-};
+export { authUserController };
