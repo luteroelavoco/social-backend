@@ -17,7 +17,9 @@ export class BookRepository implements IBookRepository {
         { author: { $regex: search, $options: "i" } },
         { description: { $regex: search, $options: "i" } },
       ],
-    }).populate("owner");
+    })
+      .sort({ updatedAt: -1 })
+      .populate("owner");
 
     return books;
   }
@@ -40,7 +42,9 @@ export class BookRepository implements IBookRepository {
         { author: { $regex: search, $options: "i" } },
         { description: { $regex: search, $options: "i" } },
       ],
-    }).populate("owner");
+    })
+      .sort({ updatedAt: -1 })
+      .populate("owner");
 
     return availableBooks;
   }

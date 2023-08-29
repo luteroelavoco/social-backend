@@ -58,6 +58,7 @@ export class TradeProposalRepository implements ITradeProposalRepository {
     const userTradeProposals = await TradeProposalDatabase.find({
       $or: [{ fromUser: userId }, { toUser: userId }],
     })
+      .sort({ updatedAt: -1 })
       .populate("desiredBook")
       .populate("fromUser")
       .populate("toUser")
