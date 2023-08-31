@@ -1,5 +1,6 @@
-import { Router } from "express";
+import { Router, request } from "express";
 import multer from "multer";
+import csv from "csv";
 import multerConfig from "./config/multer";
 import { createUserController } from "./useCases/CreateUser";
 import { authUserController } from "./useCases/AuthUser";
@@ -14,9 +15,12 @@ import { getUserTradeProposalsController } from "./useCases/GetUserTradeProposal
 import { acceptTradeProposalController } from "./useCases/AcceptTradeProposal";
 import { rejectTradeProposalController } from "./useCases/RejectTradeProposal";
 import { searchBooksController } from "./useCases/SearchBooks";
+import { JsonDataRepository } from "./repositories/Implementations/JsonDataRepository";
+import { readCSVFile } from "./utils/readCSVFile";
 
 const router = Router();
 const authMiddleWare = new AuthMiddleWare();
+const upload = multer({ dest: "./uploads/" });
 
 router.post("/auth", (request, response) => {
   return authUserController.handle(request, response);
@@ -83,5 +87,36 @@ router.put(
 router.get("/books/search", (request, response) => {
   return searchBooksController.handle(request, response);
 });
+
+router.get("/json-data", async (request, response) => {
+  const jsonDataRepository = new JsonDataRepository();
+  const jsonData = await jsonDataRepository.get();
+
+  return response.json({ data: jsonData });
+});
+
+router.post("/json-data", async (request, response) => {
+  const { data } = request.body;
+  const jsonDataRepository = new JsonDataRepository();
+  const jsonData = await jsonDataRepository.save(data);
+  return response.json({ data: jsonData });
+});
+
+router.post(
+  "/json-data/csv",
+  upload.single("csv"),
+  async (request, response) => {
+    if (request.file) {
+      try {
+        const data = await readCSVFile(request.file.path);
+        return response.json({ data });
+      } catch (error) {
+        return response.status(500).json({ error: "Error reading CSV file." });
+      }
+    }
+
+    return response.json({ data: [] });
+  }
+);
 
 export { router };
