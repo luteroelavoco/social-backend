@@ -33,7 +33,6 @@ export class UserRepository implements IUserRepository {
     findedUser.firstName = user.firstName;
     findedUser.lastName = user.lastName;
     findedUser.address = user.address;
-    findedUser.avatar = user.avatar;
     if (user.password) findedUser.password = user.password;
 
     await findedUser.save();
